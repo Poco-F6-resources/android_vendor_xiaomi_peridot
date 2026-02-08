@@ -21886,6 +21886,31 @@ cc_prebuilt_library_shared {
 }
 
 cc_prebuilt_library_shared {
+    name: "vendor.qti.ims.datachannelservice-V1-ndk",
+    owner: "xiaomi",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/system_ext/lib64/vendor.qti.ims.datachannelservice-V1-ndk.so",
+            ],
+            shared_libs: [
+                "libbinder_ndk",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    system_ext_specific: true,
+}
+
+cc_prebuilt_library_shared {
     name: "vendor.qti.imsrtpservice@3.0",
     owner: "xiaomi",
     strip: {
@@ -37577,21 +37602,6 @@ android_app_import {
 }
 
 android_app_import {
-    name: "QtiTelephony",
-    owner: "xiaomi",
-    apk: "proprietary/system_ext/priv-app/QtiTelephony/QtiTelephony.apk",
-    required: [
-        "QtiTelephonyCompat",
-    ],
-    certificate: "platform",
-    dex_preopt: {
-        enabled: false,
-    },
-    privileged: true,
-    system_ext_specific: true,
-}
-
-android_app_import {
     name: "WfdService",
     owner: "xiaomi",
     apk: "proprietary/system_ext/priv-app/WfdService/WfdService.apk",
@@ -37607,9 +37617,6 @@ android_app_import {
     name: "ims",
     owner: "xiaomi",
     apk: "proprietary/system_ext/priv-app/ims/ims.apk",
-    required: [
-        "QtiTelephonyCompat",
-    ],
     certificate: "platform",
     dex_preopt: {
         enabled: false,
@@ -37706,6 +37713,15 @@ dex_import {
     owner: "xiaomi",
     jars: [
         "proprietary/system_ext/framework/vendor.qti.ims.connectionaidlservice-V1-java.jar",
+    ],
+    system_ext_specific: true,
+}
+
+dex_import {
+    name: "vendor.qti.ims.datachannelservice-V1-java",
+    owner: "xiaomi",
+    jars: [
+        "proprietary/system_ext/framework/vendor.qti.ims.datachannelservice-V1-java.jar",
     ],
     system_ext_specific: true,
 }
@@ -41569,7 +41585,6 @@ filegroup {
         "proprietary/vendor/etc/qcril_database/upgrade/config/0015.0_config.sql",
     ],
 }
-
 filegroup {
     name: "proprietary_rildb_other_sql_files",
     srcs: [
